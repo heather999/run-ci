@@ -17,5 +17,6 @@ jobs:
       run: |
         docker pull lsstdesc/desc-python:ci
         cd $GITHUB_WORKSPACE
+        echo $GITHUB_WORKSPACE
         docker run -u lsst -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE lsstdesc/desc-python:ci /bin/bash docker/tables-io-test.sh
          
