@@ -1,0 +1,21 @@
+name: ci-with-docker
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on Ubuntu
+    runs-on: ubuntu-20.04
+    steps:
+    - name: checkout your package
+      uses: actions/checkout@v3
+      with:
+         fetch-depth: 1
+         ref: ''
+    - name: Load and run image
+      run: |
+        docker pull lsstdesc/desc-python:ci
+        cd $GITHUB_WORKSPACE
+        docker run -u lsst -v $GITHUB_WORKSPACE:$GITHUB_WORKSPACE -w $GITHUB_WORKSPACE lsstdesc/desc-python:ci /bin/bash docker/tables-io-test.sh
+         
